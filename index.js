@@ -8,6 +8,7 @@
 
 // Dependencies
 const http = require('http');
+const { handleReqRes } = require('./helpers/handleReqRes');
 
 // App object
 const app = {};
@@ -26,8 +27,6 @@ app.createServer = () => {
 };
 
 // Handle request and response
-app.handleReqRes = (req, res) => {
-    res.end('hello world of programmers');
-};
+app.handleReqRes = handleReqRes;
 
 app.createServer();
