@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index",
+    "production": "NODE_ENV=production nodemon index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -21,5 +22,8 @@
   "dependencies": {
     "global": "^4.4.0",
     "nodemon": "^3.0.1"
+  },
+  "optionalDependencies": {
+    "win-node-env": "^0.6.1"
   }
 }
