@@ -13,10 +13,6 @@ const environment = require('./helpers/environment');
 const dataLib = require('./lib/data');
 
 // testing data
-// TODO: I will remove it later
-dataLib.delete('test', 'testFile', (err) => {
-    console.log(err);
-});
 
 // App object
 const app = {};

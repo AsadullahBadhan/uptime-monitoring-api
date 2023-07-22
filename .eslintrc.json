@@ -9,9 +9,11 @@
 	},
 	"rules": {
 		"no-console": 0,
+		"no-underscore-dangle": 0,
 		"no-unused-vars": 1,
 		"no-param-reassign": 1,
 		"indent": 0,
+		"operator-linebreak": 0,
 		"linebreak-style": 0,
 		"prettier/prettier": [
 			"error",

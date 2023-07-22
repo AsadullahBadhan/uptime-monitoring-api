@@ -11,6 +11,7 @@ const url = require('url');
 const { StringDecoder } = require('string_decoder');
 const routes = require('../routes/routes');
 const { notFoundHandler } = require('../handler/routeHandler/notFoundHandler');
+const { parseJSON } = require('./utilities');
 
 // module scaffolding
 const handler = {};
@@ -24,9 +25,7 @@ handler.handleReqRes = (req, res) => {
     const method = req.method.toLowerCase();
     const headerObject = req.headers;
     const queryStringObject = parsedUrl.query;
-    const decoder = new StringDecoder('utf-8');
 
-    let bodyData = '';
     const requestProperties = {
         parsedUrl,
         path,
@@ -36,6 +35,9 @@ handler.handleReqRes = (req, res) => {
         queryStringObject,
     };
 
+    const decoder = new StringDecoder('utf-8');
+    let bodyData = '';
+
     const choosenHandler = routes[trimmedPath] ? routes[trimmedPath] : notFoundHandler;
 
     req.on('data', (buffer) => {
@@ -44,14 +46,16 @@ handler.handleReqRes = (req, res) => {
 
     req.on('end', () => {
         bodyData += decoder.end();
+        requestProperties.body = parseJSON(bodyData);
 
         choosenHandler(requestProperties, (statusCode, payload) => {
-            statusCode = typeof statusCode === 'number' ? statusCode : 500;
-            payload = typeof payload === 'object' ? payload : {};
+            statusCode = statusCode || 500;
+            payload = payload || {};
 
             const payloadString = JSON.stringify(payload);
 
             // return the response
+            res.setHeader('Content-Type', 'application/json');
             res.writeHead(statusCode);
             res.end(payloadString);
         });

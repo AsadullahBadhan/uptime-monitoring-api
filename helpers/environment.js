@@ -11,11 +11,13 @@ const environment = {};
 environment.staging = {
     name: 'staging',
     port: 3000,
+    secretKey: 'sdflsjlfas',
 };
 
 environment.production = {
     name: 'production',
     port: 5000,
+    secretKey: 'dfjfieovf',
 };
 
 const currentEnvironment = process.env.NODE_ENV || 'staging';
